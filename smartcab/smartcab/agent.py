@@ -144,7 +144,7 @@ class LearningAgent(Agent):
                     if value == self.get_maxQ(state):
                         action_list.append(actions)
                 action = random.choice(action_list)
-                
+               
         return action
 
 
