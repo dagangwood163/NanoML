@@ -71,9 +71,9 @@ class LearningAgent(Agent):
         #   For each action, set the Q-value for the state-action pair to 0
         state = (waypoint, inputs['light'],inputs['left'], inputs['oncoming'])
         if self.learning == True:
-            try:
-                 self.Q[state]
-            except KeyError:
+            if state in self.Q:
+                pass
+            else:    
                 self.Q[state]=dict()
                 for action in self.env.valid_actions:
                     self.Q[state][action] = 0.0
@@ -108,9 +108,9 @@ class LearningAgent(Agent):
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
         if self.learning == True:
-            try:
-                 self.Q[state]
-            except KeyError:
+            if state in self.Q:
+                pass
+            else:
                 self.Q[state]=dict()
                 for action in self.env.valid_actions:
                     self.Q[state][action] = 0.0                    
@@ -139,11 +139,11 @@ class LearningAgent(Agent):
             if random.random() < self.epsilon:
                 action = random.choice(self.env.valid_actions)
             else:
-                action_choice=[]
+                action_list=[]
                 for actions, value in self.Q[state].items():
                     if value == self.get_maxQ(state):
-                        action_choice.append(actions)
-                action = random.choice(action_choice)
+                        action_list.append(actions)
+                action = random.choice(action_list)
                 
         return action
 
